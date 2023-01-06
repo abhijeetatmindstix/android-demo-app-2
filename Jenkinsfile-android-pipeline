@@ -17,12 +17,7 @@ pipeline {
                 sh './sign-apk.sh'
             }
         }
-        
-        stage('Deploy') {
-            steps {
-                sh './deploy-to-app-store.sh'
-            }
-        }        
+              
     }
     post {
         success {
