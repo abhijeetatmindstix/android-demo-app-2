@@ -1,7 +1,7 @@
 def err = null
 try {
   
-    node {
+    pipeline {
       
         stage('checkout') { 
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git']]])
