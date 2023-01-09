@@ -1,24 +1,34 @@
- pipeline {
-    agent any
-    stages {
-        stage("Checkout") {
+
+
+
+
+
+pipeline {
+   agent any
+   
+   
+ 
+ stages {
+        stage('Build') {
             steps {
-                git url: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git'
+                sh './gradlew assembleDebug'
             }
         }
-        stage("Build debug APK") {
+        
+        
+        stage('Test') {
             steps {
-                sh "./gradlew assembleDebug"
+                sh './gradlew test'
             }
         }
-        stage("Build release APK") {
-            steps {
-                sh "./gradlew bundleRelease"
-    
-            }
-        } 
-         stage('Compile') {
-            archiveArtifacts artifacts: '**/*.apk', fingerprint: true, onlyIfSuccessful: true            
+        
+
+              
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*.apk', fingerprint: true
         }
     }
 }
+
