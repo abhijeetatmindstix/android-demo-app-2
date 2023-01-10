@@ -7,5 +7,21 @@ pipeline {
                 sh './gradlew bundleRelease'
             }
         }
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh './gradlew assembleDebug'
+            }
+        }
+        post {
+        success {
+            archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*.apk', fingerprint: true
+        }
+    }    
+        
     }
 }
