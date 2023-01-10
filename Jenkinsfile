@@ -17,11 +17,22 @@ pipeline {
                 sh './gradlew assembleDebug'
             }
         }
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk' // command to archive the artifacts
+            }
+        }        
 
  }
 }
 
-post {
-    success {
-        archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk'
-    }
+
+
+
+
+
+
+// post {
+//     success {
+//         archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk'
+//     }
