@@ -17,9 +17,9 @@ pipeline {
                 sh './gradlew assembleDebug'
             }
         }
-post {
-    success {
-        archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk'
-    }
-}
+// post {
+//     success {
+//         archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk'
+//     }
+// }
 }
