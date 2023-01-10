@@ -1,8 +1,3 @@
-
-
-
-
-
 pipeline {
    agent any
    
@@ -26,12 +21,7 @@ pipeline {
                 sh './gradlew assembleDebug'
             }
         }
-        
-        
-
-        
-
-              
+                    
     }
     post {
         success {
