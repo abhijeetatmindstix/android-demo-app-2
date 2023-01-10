@@ -1,8 +1,26 @@
+
+
+
+
+
 pipeline {
    agent any
    
-   
-    stages {
+ stages {
+        stage('Bundle') {
+            steps {
+                sh './gradlew bundleRelease'
+            }
+        } 
+    
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }   
+    
+ 
+ stages {
         stage('Build') {
             steps {
                 sh './gradlew assembleDebug'
@@ -10,11 +28,7 @@ pipeline {
         }
         
         
-        stage('Test') {
-            steps {
-                sh './gradlew test'
-            }
-        }
+
         
 
               
@@ -25,7 +39,4 @@ pipeline {
         }
     }
 }
-
-
-
 
