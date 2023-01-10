@@ -6,7 +6,19 @@
 pipeline {
    agent any
    
-   
+ stages {
+        stage('Bundle') {
+            steps {
+                sh './gradlew bundleRelease'
+            }
+        } 
+    
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }   
+    
  
  stages {
         stage('Build') {
@@ -16,11 +28,7 @@ pipeline {
         }
         
         
-        stage('Test') {
-            steps {
-                sh './gradlew test'
-            }
-        }
+
         
 
               
