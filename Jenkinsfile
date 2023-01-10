@@ -21,5 +21,5 @@ pipeline {
 //     success {
 //         archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk'
 //     }
-// }
+ }
 }
