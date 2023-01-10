@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk' // command to archive the artifacts
+                archiveArtifacts artifacts: '**/*.apk' // command to archive the artifacts
             }
         }        
 
