@@ -17,11 +17,10 @@ pipeline {
                 sh './gradlew assembleDebug'
             }
         }
-        post {
-        success {
-            archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*.apk', fingerprint: true
+        stage('post successs')
+            steps {
+                archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*.apk', fingerprint: true
         }
-    }    
         
     }
 }
