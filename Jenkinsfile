@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    options {timestamps () }
     options {
         disableConcurrentBuilds(abortPrevious: true)
     }
@@ -7,7 +8,7 @@ pipeline {
     stages {
         stage('Bundle') {
             steps {
-                echo "TimeStamp: ${Util.getTimeSpanString(System.currentTimeMillis())}"
+               
                 sh './gradlew bundleRelease'
             }
         }
