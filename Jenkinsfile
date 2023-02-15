@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Bundle') {
             steps {
-                echo "Starting Bundle stage at `date "+%Y-%m-%d %H:%M:%S"`"
+                echo "Current time: $(date +%Y-%m-%d_%H-%M-%S)"
                 sh './gradlew bundleRelease'
             }
         }
