@@ -1,22 +1,29 @@
 pipeline {
     agent any
-    parameters {
-    string(name: 'repository', defaultValue: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git', description: 'GitHub repository URL')
-    string(name: 'branch', defaultValue: 'main', description: 'Git branch to build')
-    }
+    // parameters {
+    // string(name: 'repository', defaultValue: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git', description: 'GitHub repository URL')
+    // string(name: 'branch', defaultValue: 'main', description: 'Git branch to build')
+    // }
 
     options {
         disableConcurrentBuilds(abortPrevious: true)
     }
 
     stages {
-         stage('Git Checkout') {
+        //  stage('Git Checkout') {
+        //     steps {
+        //         script {
+        //             gitClone repository: "${repository}", branch: "${params.Branch}"
+        //         }
+        //     }
+        // }
+        stage('Checkout') {
             steps {
-                script {
-                    gitClone repository: "${repository}", branch: "${params.Branch}"
-                }
+                echo "Starting Checkout stage at `date`"
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git']]])
             }
         }
+        
         
         stage('Bundle') {
             options {timestamps () }
@@ -72,4 +79,3 @@ pipeline {
 
     }
 }
-
