@@ -18,6 +18,8 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 sh './gradlew check'
+                def now = new Date()
+                    println now.format("yyMMdd.HHmm", TimeZone.getTimeZone('UTC'))
             }
         }        
         stage('Build') {
