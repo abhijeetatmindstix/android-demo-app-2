@@ -7,6 +7,7 @@ pipeline {
     stages {
         stage('Bundle') {
             steps {
+                echo "Starting Bundle stage at `date '+%Y-%m-%d %H:%M:%S'`"
                 sh './gradlew bundleRelease'
             }
         }
@@ -18,8 +19,6 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 sh './gradlew check'
-                def now = new Date()
-                    println now.format("yyMMdd.HHmm", TimeZone.getTimeZone('UTC'))
             }
         }        
         stage('Build') {
