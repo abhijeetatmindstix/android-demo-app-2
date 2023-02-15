@@ -31,12 +31,12 @@ pipeline {
                 sh 'ps aux | grep gradlew'
             }
         }
-        stage('Start Emulator') {
-            options {timestamps () }
-            steps {
-                sh '/opt/homebrew/bin/adb start-server'
-            }
-        }
+//         stage('Start Emulator') {
+//             options {timestamps () }
+//             steps {
+//                 sh '/opt/homebrew/bin/adb start-server'
+//             }
+//         }
   
         stage('Checkout') {
             steps {
@@ -80,12 +80,12 @@ pipeline {
             }
         }
         
-        // stage('Start Emulator') {
-        //     options {timestamps () }
-        //     steps {
-        //         sh '/opt/homebrew/bin/adb start-server'
-        //     }
-        // }
+        stage('Start Emulator') {
+            options {timestamps () }
+            steps {
+                sh '/opt/homebrew/bin/adb start-server'
+            }
+        }
         stage('Run Device Tests') {
             options {timestamps () }
             steps {
