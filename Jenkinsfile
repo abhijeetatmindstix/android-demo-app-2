@@ -92,14 +92,14 @@ pipeline {
                 archiveArtifacts artifacts: '**/*.apk' // command to archive the artifacts
             }
         }
-        stage('Cache') {
-            steps {
-                echo "Caching dependencies at `date`"
-                cache(name: 'dependencies-cache', paths: '**/build/dependencies') {
-                    sh './gradlew assembleDebug'
-                }
-            }
-        }        
+//         stage('Cache') {
+//             steps {
+//                 echo "Caching dependencies at `date`"
+//                 cache(name: 'dependencies-cache', paths: '**/build/dependencies') {
+//                     sh './gradlew assembleDebug'
+//                 }
+//             }
+//         }        
 
     }
 }
