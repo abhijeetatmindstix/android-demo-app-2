@@ -23,22 +23,22 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git']]])
             }
         }
-         stage('Cache') {
-            steps {
-                script {
-                    def gradleCacheDir = "${env.HOME}/.gradle/caches"
-                    cache(
-                        name: 'gradle',
-                        paths: [
-                            "${gradleCacheDir}/wrapper",
-                            "${gradleCacheDir}/modules-2/files-2.1"
-                        ]
-                    ) {
-                        sh './gradlew dependencies'
-                    }
-                }
-            }
-        }
+        //  stage('Cache') {
+        //     steps {
+        //         script {
+        //             def gradleCacheDir = "${env.HOME}/.gradle/caches"
+        //             cache(
+        //                 name: 'gradle',
+        //                 paths: [
+        //                     "${gradleCacheDir}/wrapper",
+        //                     "${gradleCacheDir}/modules-2/files-2.1"
+        //                 ]
+        //             ) {
+        //                 sh './gradlew dependencies'
+        //             }
+        //         }
+        //     }
+        // }
         
         
         stage('Bundle') {
@@ -90,6 +90,14 @@ pipeline {
             options {timestamps () }
             steps {
                 archiveArtifacts artifacts: '**/*.apk' // command to archive the artifacts
+            }
+        }
+        stage('Cache') {
+            steps {
+                echo "Caching dependencies at `date`"
+                cache(name: 'dependencies-cache', paths: '**/build/dependencies') {
+                    sh './gradlew assembleDebug'
+                }
             }
         }        
 
