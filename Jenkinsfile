@@ -23,10 +23,20 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git']]])
             }
         }
-        stage('Cache') {
+         stage('Cache') {
             steps {
-                echo "Restoring cache..."
-                cache(name: 'gradle', key: "${params.REPO}-${params.BRANCH}", paths: 'app/.gradle')
+                script {
+                    def gradleCacheDir = "${env.HOME}/.gradle/caches"
+                    cache(
+                        name: 'gradle',
+                        paths: [
+                            "${gradleCacheDir}/wrapper",
+                            "${gradleCacheDir}/modules-2/files-2.1"
+                        ]
+                    ) {
+                        sh './gradlew dependencies'
+                    }
+                }
             }
         }
         
