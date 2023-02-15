@@ -18,29 +18,30 @@ pipeline {
         //     }
         // }
         stage('Preparation') {
+            options {timestamps () }
             steps {
-                options {timestamps () }
                 echo "Starting Gradle daemon"
                 sh './gradlew --no-daemon --version'
             }
         }
         stage('Check ADB and Gradle') {
+            options {timestamps () }
             steps {
                 options {timestamps () }
                 sh 'ps aux | grep adb'
                 sh 'ps aux | grep gradlew'
             }
         }
-//         stage('Start Emulator') {
-//             options {timestamps () }
-//             steps {
-//                 sh '/opt/homebrew/bin/adb start-server'
-//             }
-//         }
+        stage('Start Emulator') {
+            options {timestamps () }
+            steps {
+                sh '/opt/homebrew/bin/adb start-server'
+            }
+        }
   
         stage('Checkout') {
+            options {timestamps () }
             steps {
-                options {timestamps () }
                 echo "Starting Checkout stage"
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
                 userRemoteConfigs: [[url: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git']]])
@@ -80,12 +81,12 @@ pipeline {
             }
         }
         
-        stage('Start Emulator') {
-            options {timestamps () }
-            steps {
-                sh '/opt/homebrew/bin/adb start-server'
-            }
-        }
+        // stage('Start Emulator') {
+        //     options {timestamps () }
+        //     steps {
+        //         sh '/opt/homebrew/bin/adb start-server'
+        //     }
+        // }
         stage('Run Device Tests') {
             options {timestamps () }
             steps {
