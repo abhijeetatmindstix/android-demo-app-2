@@ -1,12 +1,13 @@
 pipeline {
     agent any
-    options {timestamps () }
+
     options {
         disableConcurrentBuilds(abortPrevious: true)
     }
 
     stages {
         stage('Bundle') {
+            options {timestamps () }
             steps {
                
                 sh './gradlew bundleRelease'
