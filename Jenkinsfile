@@ -6,6 +6,13 @@ pipeline {
     }
 
     stages {
+         stage('Git Checkout') {
+            steps {
+                script {
+                    gitClone repository: "${git_repository}", branch: "${params.gitBranch}"
+                }
+            }
+        }
         
         stage('Bundle') {
             options {timestamps () }
