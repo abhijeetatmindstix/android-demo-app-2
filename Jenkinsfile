@@ -24,6 +24,19 @@ pipeline {
                 sh './gradlew --no-daemon --version'
             }
         }
+        stage('Cache') {
+            options {timestamps () }
+            steps {
+                cache (name: 'gradle-cache', paths: '.gradle') {
+                    echo "Cache miss - Running clean build"
+                    sh './gradlew --no-daemon clean build'
+                }
+                cache (name: 'dependencies-cache', paths: 'build/dependencies') {
+                    echo "Cache miss - Downloading dependencies"
+                    sh './gradlew --no-daemon dependencies'
+                }
+            }
+        }        
         stage('Check ADB and Gradle') {
             options {timestamps () }
             steps {
