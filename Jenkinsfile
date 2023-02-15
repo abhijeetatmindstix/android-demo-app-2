@@ -22,7 +22,14 @@ pipeline {
                 echo "Starting Gradle daemon at `date`"
                 sh './gradlew --no-daemon --version'
             }
-        }  
+        }
+        stage('Check ADB and Gradle') {
+            steps {
+                sh 'ps aux | grep adb'
+                sh 'ps aux | grep gradlew'
+            }
+        }
+  
         stage('Checkout') {
             steps {
                 echo "Starting Checkout stage at `date`"
