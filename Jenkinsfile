@@ -27,7 +27,6 @@ pipeline {
         stage('Check ADB and Gradle') {
             options {timestamps () }
             steps {
-                options {timestamps () }
                 sh 'ps aux | grep adb'
                 sh 'ps aux | grep gradlew'
             }
