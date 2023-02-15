@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    parameters {
+    string(name: 'repository', defaultValue: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git', description: 'GitHub repository URL')
+    string(name: 'branch', defaultValue: 'main', description: 'Git branch to build')
+    }
 
     options {
         disableConcurrentBuilds(abortPrevious: true)
@@ -9,7 +13,7 @@ pipeline {
          stage('Git Checkout') {
             steps {
                 script {
-                    gitClone repository: "${git_repository}", branch: "${params.gitBranch}"
+                    gitClone repository: "${repository}", branch: "${params.Branch}"
                 }
             }
         }
