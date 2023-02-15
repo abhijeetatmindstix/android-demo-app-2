@@ -6,8 +6,9 @@ pipeline {
     }
 
     stages {
+        options {timestamps () }
         stage('Bundle') {
-            options {timestamps () }
+            
             steps {
                
                 sh './gradlew bundleRelease'
