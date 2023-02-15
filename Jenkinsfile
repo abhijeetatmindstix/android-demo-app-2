@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Bundle') {
             steps {
-                sh "echo 'Current time: \$(date +%Y-%m-%d_%H-%M-%S)'"
+                echo "TimeStamp: ${Util.getTimeSpanString(System.currentTimeMillis())}"
                 sh './gradlew bundleRelease'
             }
         }
