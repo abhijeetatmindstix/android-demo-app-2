@@ -27,11 +27,11 @@ pipeline {
         stage('Cache') {
             options {timestamps () }
             steps {
-                cache (name: 'gradle-cache', paths: '.gradle') {
+                caches (name: 'gradle-cache', paths: '.gradle') {
                     echo "Cache miss - Running clean build"
                     sh './gradlew --no-daemon clean build'
                 }
-                cache (name: 'dependencies-cache', paths: 'build/dependencies') {
+                caches (name: 'dependencies-cache', paths: 'build/dependencies') {
                     echo "Cache miss - Downloading dependencies"
                     sh './gradlew --no-daemon dependencies'
                 }
