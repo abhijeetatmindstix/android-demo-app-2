@@ -1,22 +1,12 @@
 pipeline {
     agent any
-    // parameters {
-    // string(name: 'repository', defaultValue: 'https://github.com/abhijeetatmindstix/android-demo-app-2.git', description: 'GitHub repository URL')
-    // string(name: 'branch', defaultValue: 'main', description: 'Git branch to build')
-    // }
 
     options {
         disableConcurrentBuilds(abortPrevious: true)
     }
 
     stages {
-        //  stage('Git Checkout') {
-        //     steps {
-        //         script {
-        //             gitClone repository: "${repository}", branch: "${params.Branch}"
-        //         }
-        //     }
-        // }
+        
         stage('Preparation') {
             options {timestamps () }
             steps {
@@ -24,19 +14,7 @@ pipeline {
                 sh './gradlew --no-daemon --version'
             }
         }
-        // stage('Cache') {
-        //     options {timestamps () }
-        //     steps {
-        //         caches (name: 'gradle-cache', paths: '.gradle') {
-        //             echo "Cache miss - Running clean build"
-        //             sh './gradlew --no-daemon clean build'
-        //         }
-        //         caches (name: 'dependencies-cache', paths: 'build/dependencies') {
-        //             echo "Cache miss - Downloading dependencies"
-        //             sh './gradlew --no-daemon dependencies'
-        //         }
-        //     }
-        // }        
+        
         stage('Check ADB and Gradle') {
             options {timestamps () }
             steps {
@@ -61,33 +39,60 @@ pipeline {
         }
         
         
-        stage('Bundle') {
-            options {timestamps () }
-            steps {
+        // stage('Bundle') {
+        //     options {timestamps () }
+        //     steps {
                
-                sh './gradlew bundleRelease'
+        //         sh './gradlew bundleRelease'
+        //     }
+        // }
+        // stage('Test') {
+        //     options {timestamps () }
+        //     steps {
+        //         // sh './gradlew test'
+        //         sh './gradlew --no-daemon --offline test'
+        //     }
+        // }
+        // stage('Code Analysis') {
+        //     options {timestamps () }
+        //     steps {
+        //         // sh './gradlew check'
+        //         sh './gradlew --no-daemon --offline check'
+        //     }
+        // }        
+        // stage('Build') {
+        //     options {timestamps () }
+        //     steps {
+        //         sh './gradlew assembleDebug'
+        //     }
+        // }
+        stage('Parallel Build') {
+            options {timestamps () }
+            parallel {
+                stage('Bundle') {
+                    steps {
+                        sh './gradlew --no-daemon --offline bundleRelease'
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        sh './gradlew --no-daemon --offline test'
+                    }
+                }
+                stage('Code Analysis') {
+                    steps {
+                        sh './gradlew --no-daemon --offline check'
+                    }
+                }
+                stage('Build') {
+                    steps {
+                        sh './gradlew --no-daemon --offline assembleDebug'
+                    }
+                }
             }
         }
-        stage('Test') {
-            options {timestamps () }
-            steps {
-                // sh './gradlew test'
-                sh './gradlew --no-daemon --offline test'
-            }
-        }
-        stage('Code Analysis') {
-            options {timestamps () }
-            steps {
-                // sh './gradlew check'
-                sh './gradlew --no-daemon --offline check'
-            }
-        }        
-        stage('Build') {
-            options {timestamps () }
-            steps {
-                sh './gradlew assembleDebug'
-            }
-        }
+
+
         stage('Check ADB') {
             options {timestamps () }
             steps {
@@ -95,12 +100,7 @@ pipeline {
             }
         }
         
-        // stage('Start Emulator') {
-        //     options {timestamps () }
-        //     steps {
-        //         sh '/opt/homebrew/bin/adb start-server'
-        //     }
-        // }
+
         stage('Run Device Tests') {
             options {timestamps () }
             steps {
@@ -119,3 +119,5 @@ pipeline {
     }
 
 }
+
+
