@@ -71,12 +71,14 @@ pipeline {
         stage('Test') {
             options {timestamps () }
             steps {
-                sh './gradlew test'
+                // sh './gradlew test'
+                sh './gradlew --no-daemon --offline test'
             }
         }
         stage('Code Analysis') {
             options {timestamps () }
             steps {
+                // sh './gradlew check'
                 sh './gradlew --no-daemon --offline check'
             }
         }        
@@ -102,6 +104,7 @@ pipeline {
         stage('Run Device Tests') {
             options {timestamps () }
             steps {
+                // sh './gradlew connectedDebugAndroidTest'
                 sh './gradlew --no-daemon --offline connectedDebugAndroidTest'
             }
         }        
