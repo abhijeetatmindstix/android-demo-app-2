@@ -65,7 +65,7 @@ pipeline {
             options {timestamps () }
             steps {
                
-                sh './gradlew bundleRelease'
+                sh './gradlew --no-daemon --offline bundleRelease'
             }
         }
         stage('Test') {
