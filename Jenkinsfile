@@ -65,7 +65,7 @@ pipeline {
             options {timestamps () }
             steps {
                
-                sh './gradlew --no-daemon --offline bundleRelease'
+                sh './gradlew bundleRelease'
             }
         }
         stage('Test') {
@@ -77,7 +77,7 @@ pipeline {
         stage('Code Analysis') {
             options {timestamps () }
             steps {
-                sh './gradlew check'
+                sh './gradlew --no-daemon --offline check'
             }
         }        
         stage('Build') {
@@ -102,7 +102,7 @@ pipeline {
         stage('Run Device Tests') {
             options {timestamps () }
             steps {
-                sh './gradlew connectedDebugAndroidTest'
+                sh './gradlew --no-daemon --offline connectedDebugAndroidTest'
             }
         }        
        
