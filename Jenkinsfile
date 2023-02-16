@@ -24,19 +24,19 @@ pipeline {
                 sh './gradlew --no-daemon --version'
             }
         }
-        stage('Cache') {
-            options {timestamps () }
-            steps {
-                caches (name: 'gradle-cache', paths: '.gradle') {
-                    echo "Cache miss - Running clean build"
-                    sh './gradlew --no-daemon clean build'
-                }
-                caches (name: 'dependencies-cache', paths: 'build/dependencies') {
-                    echo "Cache miss - Downloading dependencies"
-                    sh './gradlew --no-daemon dependencies'
-                }
-            }
-        }        
+        // stage('Cache') {
+        //     options {timestamps () }
+        //     steps {
+        //         caches (name: 'gradle-cache', paths: '.gradle') {
+        //             echo "Cache miss - Running clean build"
+        //             sh './gradlew --no-daemon clean build'
+        //         }
+        //         caches (name: 'dependencies-cache', paths: 'build/dependencies') {
+        //             echo "Cache miss - Downloading dependencies"
+        //             sh './gradlew --no-daemon dependencies'
+        //         }
+        //     }
+        // }        
         stage('Check ADB and Gradle') {
             options {timestamps () }
             steps {
@@ -111,15 +111,12 @@ pipeline {
             steps {
                 archiveArtifacts artifacts: '**/*.apk' // command to archive the artifacts
             }
-        }
-        // stage('Cache') {
-        //     steps {
-        //         echo "Caching dependencies at `date`"
-        //         cache(name: 'dependencies-cache', paths: '**/build/dependencies') {
-        //             sh './gradlew assembleDebug'
-        //         }
-        //     }
-        // }        
+        }        
 
     }
+    post {
+     always {
+      cleanWs()
+    }
+  }
 }
