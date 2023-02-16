@@ -114,10 +114,5 @@ pipeline {
         }        
 
     }
-        post {
-         always {
-            cleanWs failOnError: false, disableDeferredWipeout: true
-         }
-        }
 
 }
