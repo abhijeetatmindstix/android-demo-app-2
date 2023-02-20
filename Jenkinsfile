@@ -71,22 +71,24 @@ pipeline {
             parallel {
                 stage('Bundle') {
                     steps {
-                        sh './gradlew --no-daemon --offline bundleRelease'
+//                         sh './gradlew --no-daemon --offline bundleRelease'
+                        sh './gradlew bundleRelease'
                     }
                 }
                 stage('Test') {
                     steps {
-                        sh './gradlew --no-daemon --offline test'
+                        sh './gradlew test'
                     }
                 }
                 stage('Code Analysis') {
                     steps {
-                        sh './gradlew --no-daemon --offline check'
+                        sh './gradlew check'
                     }
                 }
                 stage('Build') {
                     steps {
-                        sh './gradlew --no-daemon --offline assembleDebug'
+//                         sh './gradlew --no-daemon --offline assembleDebug'
+                        sh './gradlew assembleDebug'
                     }
                 }
             }
@@ -104,8 +106,8 @@ pipeline {
         stage('Run Device Tests') {
             options {timestamps () }
             steps {
-                // sh './gradlew connectedDebugAndroidTest'
-                sh './gradlew --no-daemon --offline connectedDebugAndroidTest'
+                sh './gradlew connectedDebugAndroidTest'
+//                 sh './gradlew --no-daemon --offline connectedDebugAndroidTest'
             }
         }        
        
