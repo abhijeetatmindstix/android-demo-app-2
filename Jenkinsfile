@@ -125,7 +125,7 @@ pipeline {
             milestone(1)
         }
         failure {
-            input 'The previous build failed. Do you want to proceed with this build?'
+            input 'The target branch is currently in a failed state. Do you want to abort'
         }
     }   
 
