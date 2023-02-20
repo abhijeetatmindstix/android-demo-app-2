@@ -121,11 +121,11 @@ pipeline {
     }
     
     post {
+        always {
+            milestone(1)
+        }
         failure {
-            script {
-                currentBuild.result = 'FAILURE'
-                error 'Previous build failed'
-            }
+            input 'The previous build failed. Do you want to proceed with this build?'
         }
     }   
 
