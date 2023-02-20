@@ -119,6 +119,12 @@ pipeline {
         }        
 
     }
+    
+    post {
+        failure {
+            error 'Previous build failed or was aborted'
+        }
+    }    
 
 }
 
