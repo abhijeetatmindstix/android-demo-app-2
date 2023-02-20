@@ -6,6 +6,16 @@ pipeline {
     }
 
     stages {
+        stage('Pre-build check') {
+            steps {
+                script {
+                    def lastBuild = currentBuild.rawBuild.getPreviousBuild()
+                    if (lastBuild != null && lastBuild.result.isWorseThan(Result.SUCCESS)) {
+                        error('The previous build failed. Cancelling the current build.')
+                    }
+                }
+            }
+        }        
         
         stage('Preparation') {
             options {timestamps () }
