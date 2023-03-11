@@ -5,7 +5,7 @@ on:
     branches: [ "practice-action" ]
   pull_request:
     branches: [ "practice-action" ]
-workflow_dispatch:
+  workflow_dispatch:
     inputs:
       app_id:
         description: 'The application Id/package name'
@@ -47,6 +47,7 @@ jobs:
         npm install -g --save-dev sonarqube-scanner
 
   unit-test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
