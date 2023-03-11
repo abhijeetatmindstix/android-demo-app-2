@@ -83,7 +83,6 @@ jobs:
   cleanup:
     needs: assembleDebug
     runs-on: ubuntu-latest
-    needs: [build]
     steps:
       - name: Cleanup
         run: |
