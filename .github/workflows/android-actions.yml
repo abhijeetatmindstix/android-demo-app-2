@@ -6,6 +6,14 @@ on:
   pull_request:
     branches: [ "practice-action" ]
   workflow_dispatch:
+    inputs:
+      app_id:
+        description: 'The application Id/package name'
+        required: true
+      branch:
+        description: 'The branch from which you want the build'
+        required: true
+        default: 'main'
 
 jobs:
   build:
