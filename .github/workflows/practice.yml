@@ -1,4 +1,4 @@
-name: Practice-Action
+name: Demo-yaml
 
 on:
   push:
