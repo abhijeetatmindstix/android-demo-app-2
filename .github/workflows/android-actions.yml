@@ -44,7 +44,7 @@ jobs:
           path: app/build/reports/tests/testDebugUnitTest/  
 
   build:
-    needs: lint
+    needs: unit-test
 
     runs-on: ubuntu-latest
 
@@ -62,10 +62,10 @@ jobs:
         curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
         sudo apt-get install -y nodejs
         npm install -g --save-dev sonarqube-scanner  
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
 
   assembleDebug:
     runs-on: ubuntu-latest
@@ -82,6 +82,7 @@ jobs:
   cleanup:
     needs: assembleDebug
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Cleanup
         run: |
