@@ -5,6 +5,7 @@ on:
     branches: [ "practice-action" ]
   pull_request:
     branches: [ "practice-action" ]
+  workflow_dispatch:
 
 jobs:
   build:
