@@ -81,6 +81,7 @@ jobs:
           ./gradlew assembleDebug      
 
   cleanup:
+    needs: assembleDebug
     runs-on: ubuntu-latest
     needs: [build]
     steps:
