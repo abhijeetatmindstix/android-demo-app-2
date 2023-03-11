@@ -1,11 +1,11 @@
-name: Practice-Action
+name: My-workflow-Action
 
 on:
   push:
     branches: [ "practice-action" ]
   pull_request:
     branches: [ "practice-action" ]
-workflow_dispatch:
+  workflow_dispatch:
     inputs:
       app_id:
         description: 'The application Id/package name'
