@@ -42,6 +42,7 @@ jobs:
       - name: Build APK
         run: |
           cd app
+          chmod +x gradlew
           ./gradlew assembleDebug      
 
   cleanup:
