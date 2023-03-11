@@ -71,6 +71,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build APK
+        working-directory: app
         run: |
           cd app
           chmod +x gradlew
