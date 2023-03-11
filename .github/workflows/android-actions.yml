@@ -33,6 +33,17 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
+  assembleDebug:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build APK
+        run: |
+          cd app
+          ./gradlew assembleDebug      
+
   cleanup:
     runs-on: ubuntu-latest
     needs: [build]
